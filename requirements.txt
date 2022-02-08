@@ -1,0 +1,4 @@
+#requirements.txt sets all the required version libraries to make the project work
+Flask==2.0.2
+Flask-MySQL==1.5.2
+Jinja2==3.0.3
