@@ -8,5 +8,35 @@
 </head>
 <body>
     <h1>Home </h1>
+    <a href="/create">create new employee</a>
+    <br>
+    <br>
+    <a href="/edit">edit employee</a>
+    <br> <br>
+    <table class="table table-light">
+        <thead class="thead-light">
+            <tr>
+                <th>ID</th>
+                <th>Foto</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for empleado in empleados %} <!--Extension Jinja2, un Jfor -->
+            <tr>
+                <td>{{empleado[0]}}</td> <!-- En el dict de cada empleado, Num ID -->
+                <td>{{empleado[3]}}</td> <!-- Foto -->
+                <td>{{empleado[1]}}</td> <!-- Nombre -->
+                <td>{{empleado[2]}}</td> <!-- Correo -->
+                <td>Editar | 
+                    <a href="/destroy/{{empleado[0]}}">Borrar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 </body>
 </html>
