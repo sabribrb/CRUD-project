@@ -1,6 +1,7 @@
 import os #modulo de sistema op. para eliminar la foto y updatearla
 from flask import Flask
-from flask import render_template, request,redirect #los request son solicitud de info, redirect permite redireccionar
+from flask import render_template, request,redirect, send_from_directory, url_for
+ #los request son solicitud de info, redirect permite redireccionar
 from flaskext.mysql import MySQL
 from datetime import datetime #para grabar el id de foto
 
@@ -16,6 +17,11 @@ mysql.init_app(app)
 #referenciar a la carpeta donde se subiran las fotos, con la libreria os
 CARPETA=os.path.join('uploads')
 app.config['CARPETA']=CARPETA
+
+#para obtener la foto desde uploads en la tabla
+@app.route('/uploads/<nombreFoto>')
+def uploads(nombreFoto):
+    return send_from_directory(app.config['CARPETA'], nombreFoto)
 
 #para abrir el index vamos a la terminal : "python app.py"
 @app.route("/") #indicamos la redireccion del url
@@ -100,7 +106,7 @@ def storage():
     #guardar el nombre de la foto con datetime
     now= datetime.now()
     tiempo= now.strftime("%Y%H%M%S") #año-hora-min-seg
-    nuevoNombreFoto="NO PHOTO"
+    nuevoNombreFoto='' #TO DO TO FIX ARREGLAR PENDIENTE
     if _foto.filename!='':
         nuevoNombreFoto= tiempo+_foto.filename
         _foto.save("uploads/"+nuevoNombreFoto)
