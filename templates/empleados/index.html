@@ -9,9 +9,7 @@
 <body>
     <h1>Home </h1>
     <a href="/create">create new employee</a>
-    <br>
-    <br>
-    <a href="/edit">edit employee</a>
+   
     <br> <br>
     <table class="table table-light">
         <thead class="thead-light">
@@ -30,7 +28,8 @@
                 <td>{{empleado[3]}}</td> <!-- Foto -->
                 <td>{{empleado[1]}}</td> <!-- Nombre -->
                 <td>{{empleado[2]}}</td> <!-- Correo -->
-                <td>Editar | 
+                <td> <a href="/edit/{{empleado[0]}}">Editar</a>
+                    | 
                     <a href="/destroy/{{empleado[0]}}">Borrar</a>
                 </td>
             </tr>
