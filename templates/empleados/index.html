@@ -1,3 +1,9 @@
+{% include 'header.html' %}
+<a href="{{url_for('create')}}" class="btn btn-success">
+    Nuevo Empleado
+</a> 
+<br>
+<br>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +13,42 @@
     <title>Home - Empleados</title>
 </head>
 <body>
-    <h1>Home</h1>
+    <h1>Home </h1>
+ 
+   
+    <br> <br>
+    <table class="table table-light">
+        <thead class="thead-light">
+            <tr>
+                <th>ID</th>
+                <th>Foto</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for empleado in empleados %} <!--Extension Jinja2, un Jfor -->
+            <tr>
+                <td>{{empleado[0]}}</td> <!-- En el dict de cada empleado, Num ID -->
+                <td>
+                    <img class="img-thumbnail" width="100" src="uploads/{{empleado[3]}}" alt="">
+                </td> <!-- Foto -->
+                <td>{{empleado[1]}}</td> <!-- Nombre -->
+                <td>{{empleado[2]}}</td> <!-- Correo -->
+                <td>
+                     <a class="btn btn-warning" href="/edit/{{empleado[0]}}">Editar</a>
+                    | 
+                    <a class="btn btn-danger"
+                     onclick="return confirm('ATENCIÓN: Eliminará el empleado seleccionado. Esta accion es irreversible')"
+                      href="/destroy/{{empleado[0]}}">Borrar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 </body>
 </html>
+
+{% include 'footer.html' %}
