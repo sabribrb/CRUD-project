@@ -1,12 +1,14 @@
 import os #modulo de sistema op. para eliminar la foto y updatearla
 from flask import Flask
-from flask import render_template, request,redirect, send_from_directory, url_for
+from flask import render_template, request,redirect, send_from_directory, url_for, flash
  #los request son solicitud de info, redirect permite redireccionar
+ #flash sirve para dar mensajes de validacion
 from flaskext.mysql import MySQL
 from datetime import datetime #para grabar el id de foto
 
 #en el patron MVC flask.py funciona como Controlador
 app= Flask(__name__)
+app.secret_key="SecretKey"
 mysql= MySQL() #creamos instancia mysql
 app.config['MYSQL_DATABASE_HOST']='localhost'
 app.config['MYSQL_DATABASE_USER']='root'
@@ -103,6 +105,12 @@ def storage():
     _nombre= request.form['txtNombre']
     _correo= request.form['txtCorreo']
     _foto= request.files['txtFoto']
+
+    #validacion de formulario completado:
+    if _nombre=='' or _correo=='' or _foto=='':
+        flash("Recuerda completar todos los campos")
+        return redirect(url_for('create'))
+
     #guardar el nombre de la foto con datetime
     now= datetime.now()
     tiempo= now.strftime("%Y%H%M%S") #año-hora-min-seg
